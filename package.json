@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon --exec ts-node src/server.ts",
     "build": "tsc",
-    "start": "node --max-old-space-size=4096 dist/server.js"
+    "start": "node ts-node src/server.ts"
   },
   "keywords": [],
   "author": "",
