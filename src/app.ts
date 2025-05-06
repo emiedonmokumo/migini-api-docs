@@ -3,6 +3,8 @@ import { swaggerDefinition } from './config/swagger';
 import path from 'path';
 import fs from 'fs';
 import { getAbsoluteFSPath } from 'swagger-ui-dist';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const swaggerDistPath = getAbsoluteFSPath();
 
@@ -24,7 +26,7 @@ const app = (req: IncomingMessage, res: ServerResponse) => {
         <script>
           window.onload = () => {
             SwaggerUIBundle({
-              url: '/api/docs/swagger.json',
+              url: '${process.env.SWAGGER_JSON_URL}',
               dom_id: '#swagger-ui',
             });
           };
