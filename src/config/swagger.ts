@@ -28,7 +28,7 @@ export const swaggerOptions = {
             },
         }
     },
-    apis: ['src/**/*.ts'], // Use __dirname for absolute path
+    apis: ['./src/**/*.ts'], // Use __dirname for absolute path
 };
 
 export default swaggerOptions;

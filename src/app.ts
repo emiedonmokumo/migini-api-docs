@@ -24,7 +24,12 @@ app.get('/swagger-static/swagger.json', (req, res) => {
 });
 
 // Serve Swagger docs
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(null, {
+  swaggerUrl: '/swagger-static/swagger.json',
+  explorer: true,
+  customCssUrl: '/swagger-static/swagger-ui.css',
+  customJs: '/swagger-static/swagger-ui-bundle.js'
+}));
 
 
 export default app;
