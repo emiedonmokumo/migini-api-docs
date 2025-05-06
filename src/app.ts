@@ -12,40 +12,27 @@ const app = (req: IncomingMessage, res: ServerResponse) => {
   if (url === '/api/docs' && method === 'GET') {
     // Serve the Swagger UI HTML page
     const html = `
-  <!DOCTYPE html>
-  <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Swagger UI</title>
-    <link rel="stylesheet" type="text/css" href="/api/docs/swagger-ui.css" />
-    <link rel="icon" type="image/png" href="/api/docs/favicon-32x32.png" />
-    <style>
-      html { box-sizing: border-box; overflow: -moz-scrollbars-vertical; overflow-y: scroll; }
-      *, *:before, *:after { box-sizing: inherit; }
-      body { margin:0; background: #fafafa; }
-    </style>
-  </head>
-  <body>
-    <div id="swagger-ui"></div>
-    <script src="/api/docs/swagger-ui-bundle.js"></script>
-    <script src="/api/docs/swagger-ui-standalone-preset.js"></script>
-    <script>
-      window.onload = function () {
-        window.ui = SwaggerUIBundle({
-          url: '/api/docs/swagger.json',
-          dom_id: '#swagger-ui',
-          deepLinking: true,
-          presets: [
-            SwaggerUIBundle.presets.apis,
-            SwaggerUIStandalonePreset
-          ],
-          layout: "StandaloneLayout"
-        });
-      };
-    </script>
-  </body>
-  </html>
-`;
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Swagger UI</title>
+        <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css" />
+      </head>
+      <body>
+        <div id="swagger-ui"></div>
+        <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+        <script>
+          window.onload = () => {
+            SwaggerUIBundle({
+              url: '/api/docs/swagger.json',
+              dom_id: '#swagger-ui',
+            });
+          };
+        </script>
+      </body>
+    </html>
+    `;
+
 
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end(html);
