@@ -27,7 +27,7 @@ export const options = {
             },
         }
     },
-    apis: ['./src/*.ts'], // Path to the API documentation files
+    apis: ['src/**/*.ts'], // Path to the API documentation files
 };
 
 export const swaggerDefinition = swaggerJsdoc(options);
