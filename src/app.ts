@@ -1,21 +1,31 @@
-import swaggerUiDist from 'swagger-ui-dist';
-import express from 'express';
-import swaggerUi from 'swagger-ui-express'
-import swaggerJsdoc from 'swagger-jsdoc';
+import express, { Application } from 'express';
 import dotenv from 'dotenv';
+import swaggerJsdoc from 'swagger-jsdoc'
+import swaggerUi from 'swagger-ui-express'
+import { swaggerDefinition } from './config/swagger';
+import path from 'path';
+
 dotenv.config();
 
-import swaggerOptions from './config/swagger';
+const app: Application = express();
 
-const app = express();
+const options = {
+  swaggerDefinition,
+  apis: ['./src/swaggerDocs/*.ts'], // Path to the API documentation files
+};
 
 // Create swagger spec
-const swaggerSpec = swaggerJsdoc(swaggerOptions);
+const swaggerSpec = swaggerJsdoc(options);
 
+// Middlewares
+app.use(express.json())
+// app.use(cors()) // configure when FE is connected
+app.use(express.urlencoded({
+  extended: false
+}));
 
 // Serve static Swagger UI assets
-const swaggerUiAssetPath = swaggerUiDist.getAbsoluteFSPath();
-app.use('/swagger-static', express.static(swaggerUiAssetPath));
+app.use('/swagger-static', express.static(path.join(__dirname, 'node_modules', 'swagger-ui-dist')));
 
 
 app.get('/swagger-static/swagger.json', (req, res) => {
@@ -24,12 +34,7 @@ app.get('/swagger-static/swagger.json', (req, res) => {
 });
 
 // Serve Swagger docs
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(null, {
-  swaggerUrl: '/swagger-static/swagger.json',
-  explorer: true,
-  customCssUrl: '/swagger-static/swagger-ui.css',
-  customJs: '/swagger-static/swagger-ui-bundle.js'
-}));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
-export default app;
+export default app
