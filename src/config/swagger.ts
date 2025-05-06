@@ -1,9 +1,10 @@
 import swaggerJsdoc from 'swagger-jsdoc';
+import path from 'path';
 import dotenv from 'dotenv';
 dotenv.config();
 
 
-export const options = {
+export const swaggerOptions = {
     definition: {
         openapi: '3.0.0',
         info: {
@@ -27,7 +28,7 @@ export const options = {
             },
         }
     },
-    apis: ['src/**/*.ts'], // Path to the API documentation files
+    apis: ['src/**/*.ts'], // Use __dirname for absolute path
 };
 
-export const swaggerDefinition = swaggerJsdoc(options);
+export default swaggerOptions;
