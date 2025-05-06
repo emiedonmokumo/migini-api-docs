@@ -1,5 +1,4 @@
-import fs from 'fs';
-import path from 'path';
+import swaggerUiDist from 'swagger-ui-dist';
 import express from 'express';
 import swaggerUi from 'swagger-ui-express'
 import swaggerJsdoc from 'swagger-jsdoc';
@@ -15,7 +14,8 @@ const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
 
 // Serve static Swagger UI assets
-app.use('/swagger-static', express.static(path.join(__dirname, 'node_modules', 'swagger-ui-dist')));
+const swaggerUiAssetPath = swaggerUiDist.getAbsoluteFSPath();
+app.use('/swagger-static', express.static(swaggerUiAssetPath));
 
 
 app.get('/swagger-static/swagger.json', (req, res) => {
